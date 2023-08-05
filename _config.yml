@@ -8,7 +8,7 @@ description: A blog about tings
 # if it's an external image, update below for true
 # better with square images
 external-image: true
-picture: assets/images/BYZ_8603.jpg
+picture: assets/images/BYZ_8387_square.jpg
 
 # your site color theme, true for dark theme, 
 # false to light theme, auto to switch with system.
@@ -46,7 +46,7 @@ authors:
     name: Bryan McDonald
     bio: A person
     external-image: true
-    picture: assets/images/BYZ_8603.jpg
+    picture: assets/images/BYZ_8387_square.jpg
     twitter: _Bryan_McD
 
 # do you want a larger site? change the option below
