@@ -3,7 +3,7 @@ title: John Doe
 bio: A Person who travels the world eating noodles
 
 # twitter summary info
-description: A blog about technology and stuff related
+description: A blog about tings
 
 # if it's an external image, update below for true
 # better with square images
@@ -20,7 +20,7 @@ resume: true
 resume-external: true
 resume-url: https://google.com/?q=my+resume
 
-url: https://sergiokopplin.github.io/indigo
+url: https://BryanMcD.github.io/indigo
 # your url: https://USERNAME.github.io
 
 permalink: /:title/
