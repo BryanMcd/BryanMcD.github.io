@@ -12,7 +12,7 @@ picture: assets/images/BYZ_8387_square.jpg
 
 # your site color theme, true for dark theme, 
 # false to light theme, auto to switch with system.
-dark-theme: auto
+dark-theme: true
 
 # If you want to include your resume, set to true
 # and specify source (external or local).
@@ -36,6 +36,7 @@ disqus:
 # if you don't have any of social below, comment the line
 #facebook: myfacebook
 twitter: _Bryan_McD
+gscholar: bfnkfVsAAAAJ&hl=en
 instagram: bm.om1
 linkedin: bryan-mcdonald-3a73366a
 #github: mygithub
@@ -68,6 +69,7 @@ pagination:
 # if you don't need "about" or "blog", comment them out below
 about: true
 #blog: true
+photos: true
 
 # do you want to show the "read time" of the posts?
 read-time: true
