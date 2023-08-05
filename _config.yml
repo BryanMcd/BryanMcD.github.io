@@ -34,17 +34,17 @@ disqus:
   categories: [blog, project] # only show disqus for posts that have these categories
 
 # if you don't have any of social below, comment the line
-facebook: myfacebook
-twitter: mytwitter
-instagram: https://www.instagram.com/bm.om1/
-linkedin: mylinkedin
-github: mygithub
-email: myemail@gmail.com
+#facebook: myfacebook
+twitter: _Bryan_McD
+instagram: bm.om1
+linkedin: bryan-mcdonald-3a73366a
+#github: mygithub
+#email: myemail@gmail.com
 
 authors:
   bryanmcd:
     name: Bryan McDonald
-    bio: A Man who travels the world eating noodles
+    bio: A person
     external-image: true
     picture: assets/images/profile.jpg
     twitter: _Bryan_McD
