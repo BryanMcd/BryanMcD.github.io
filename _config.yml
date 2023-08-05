@@ -1,9 +1,9 @@
 # main text of home
 title: Bryan McDonald
-bio: A Person
+bio: A scientist
 
 # twitter summary info
-description: A blog about tings
+description: Science and other things
 
 # if it's an external image, update below for true
 # better with square images
@@ -29,9 +29,7 @@ permalink: /:title/
 # analytics-google: 'UA-MYANALYTICS'
 
 # if you don't want comments in your posts, leave categories empty
-disqus:
-  shortname: github # enter this from your disqus account
-  categories: [blog, project] # only show disqus for posts that have these categories
+disqus: false
 
 # if you don't have any of social below, comment the line
 #facebook: myfacebook
