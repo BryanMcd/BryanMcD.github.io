@@ -1,6 +1,6 @@
 # main text of home
 title: Bryan McDonald
-bio: A scientist
+bio: A human scientist
 
 # twitter summary info
 description: Science and other things
@@ -8,7 +8,7 @@ description: Science and other things
 # if it's an external image, update below for true
 # better with square images
 external-image: true
-picture: assets/images/BYZ_8387_square.jpg
+picture: assets/images/91074912_square.jpg
 
 # your site color theme, true for dark theme, 
 # false to light theme, auto to switch with system.
@@ -45,7 +45,7 @@ authors:
     name: Bryan McDonald
     bio: A person
     external-image: true
-    picture: assets/images/BYZ_8387_square.jpg
+    picture: assets/images/91074912_square.jpg
     twitter: _Bryan_McD
 
 # do you want a larger site? change the option below
