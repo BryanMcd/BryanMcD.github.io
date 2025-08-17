@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notion Pet</title>
+  <style>
+    :root{
+      --pet-size: 96;         /* in px (number only) */
+      --speed: 300;           /* px per second */
+      --bg: transparent;      /* background behind the pet */
+      --ui-bg: rgba(255,255,255,0.85);
+      --ui-fg: #111;
+      --ui-border: rgba(0,0,0,0.08);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --ui-bg: rgba(17,17,17,0.75);
+        --ui-fg: #f2f2f2;
+        --ui-border: rgba(255,255,255,0.12);
+      }
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--bg);
+      touch-action: manipulation;
+      user-select: none;
+    }
+    #pet {
+      position: absolute;
+      width: calc(var(--pet-size) * 1px);
+      height: auto;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: filter 0.2s ease;
+      will-change: transform;
+      pointer-events: none; /* clicks pass through to page */
+    }
+    #shadow {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: calc(var(--pet-size) * 0.8px);
+      height: calc(var(--pet-size) * 0.22px);
+      background: rgba(0,0,0,0.18);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(1, 1);
+      filter: blur(4px);
+      pointer-events: none;
+    }
+    .moving #shadow {
+      animation: squish 0.4s ease-in-out infinite alternate;
+    }
+    @keyframes squish {
+      from { transform: translate(-50%, -50%) scale(1.05, 0.95); }
+      to   { transform: translate(-50%, -50%) scale(0.95, 1.05); }
+    }
+
+    /* Tiny HUD for quick tuning (optional) */
+    #hud{
+      position: fixed;
+      right: 10px; top: 10px;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 10px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      font-size: 12px;
+      color: var(--ui-fg);
+      background: var(--ui-bg);
+      border: 1px solid var(--ui-border);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      backdrop-filter: saturate(1.25) blur(6px);
+      -webkit-backdrop-filter: saturate(1.25) blur(6px);
+    }
+    #hud label{ opacity: 0.8; }
+    #hud input[type="range"]{ width: 110px; }
+    #hud button{
+      appearance: none;
+      border: 1px solid var(--ui-border);
+      background: transparent;
+      color: var(--ui-fg);
+      border-radius: 10px;
+      font-size: 12px;
+      padding: 6px 8px;
+      cursor: pointer;
+    }
+    #hud button:hover{ filter: brightness(1.05); }
+    #hud button:active{ transform: translateY(1px); }
+
+    /* SVG bits */
+    .pupil { transition: transform 120ms ease; transform-box: fill-box; transform-origin: center; }
+    .tail  { transform-box: fill-box; transform-origin: 20px 64px; }
+    .moving .tail { animation: wag 0.28s ease-in-out infinite alternate; }
+    @keyframes wag {
+      from { transform: rotate(-8deg); }
+      to   { transform: rotate(8deg); }
+    }
+    .blink { animation: blink 5s infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes blink {
+      0%, 2%, 100% { transform: scaleY(1); }
+      1%          { transform: scaleY(0.05); }
+    }
+    /* Reduce motion if user prefers */
+    @media (prefers-reduced-motion: reduce){
+      .moving #shadow, .moving .tail { animation: none; }
+      .blink { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Minimal controls (you can hide with ?hud=0) -->
+  <div id="hud" role="group" aria-label="Notion Pet Controls">
+    <label>Size
+      <input id="size" type="range" min="56" max="160" step="1" />
+    </label>
+    <label>Speed
+      <input id="speed" type="range" min="80" max="650" step="10" />
+    </label>
+    <button id="center">Center</button>
+  </div>
+
+  <!-- Soft shadow under the pet -->
+  <div id="shadow" aria-hidden="true"></div>
+
+  <!-- A simple SVG kitty (fully inline, no external assets) -->
+  <svg id="pet" viewBox="0 0 128 128" aria-label="Virtual pet">
+    <!-- Tail -->
+    <path class="tail" d="M18 74 C 4 70, 8 52, 24 54 C 36 56, 36 70, 26 72" fill="#f5c38b"/>
+
+    <!-- Body -->
+    <g id="body">
+      <path d="M34 96 C 15 80, 15 48, 34 36 C 48 27, 80 27, 94 36 C 113 48, 113 80, 94 96 C 80 108, 48 108, 34 96 Z" fill="#f8d5a8" stroke="#d7b289" stroke-width="2"/>
+      <!-- Ears -->
+      <path d="M44 30 L52 10 L60 30 Z" fill="#f8d5a8" stroke="#d7b289" stroke-width="2"/>
+      <path d="M84 30 L76 10 L68 30 Z" fill="#f8d5a8" stroke="#d7b289" stroke-width="2"/>
+      <!-- Inner ears -->
+      <path d="M50 28 L52 18 L56 28 Z" fill="#f0b9a2"/>
+      <path d="M72 28 L76 18 L78 28 Z" fill="#f0b9a2"/>
+
+      <!-- Face -->
+      <circle cx="52" cy="64" r="10" fill="#fff" opacity="0.8"/>
+      <circle cx="76" cy="64" r="10" fill="#fff" opacity="0.8"/>
+
+      <!-- Eyes -->
+      <circle class="pupil" id="eyeL" cx="52" cy="64" r="4" fill="#222"/>
+      <circle class="pupil" id="eyeR" cx="76" cy="64" r="4" fill="#222"/>
+
+      <!-- Blinky lids -->
+      <rect class="blink" x="44" y="54" width="16" height="20" fill="#f8d5a8" opacity="0.2" rx="8"/>
+      <rect class="blink" x="68" y="54" width="16" height="20" fill="#f8d5a8" opacity="0.2" rx="8"/>
+
+      <!-- Nose & mouth -->
+      <circle cx="64" cy="74" r="2.2" fill="#d17878"/>
+      <path d="M64 76 q -4 6 -8 0" stroke="#a05f5f" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M64 76 q 4 6 8 0" stroke="#a05f5f" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- Whiskers -->
+      <path d="M40 74 h 14" stroke="#a58b7a" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+      <path d="M40 70 h 14" stroke="#a58b7a" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+      <path d="M74 74 h 14" stroke="#a58b7a" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+      <path d="M74 70 h 14" stroke="#a58b7a" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    </g>
+  </svg>
+
+  <script>
+    // --- Query params allow quick customization: ?size=120&speed=380&hud=0&bg=%23ffffff
+    (function applyQueryParams(){
+      const params = new URLSearchParams(location.search);
+      const size = parseFloat(params.get("size"));
+      const speed = parseFloat(params.get("speed"));
+      const hud   = params.get("hud");
+      const bg    = params.get("bg");
+      if(!Number.isNaN(size))   document.documentElement.style.setProperty("--pet-size", size);
+      if(!Number.isNaN(speed))  document.documentElement.style.setProperty("--speed", speed);
+      if(bg) document.documentElement.style.setProperty("--bg", decodeURIComponent(bg));
+      if(hud === "0") document.getElementById("hud").style.display = "none";
+    })();
+
+    const pet    = document.getElementById("pet");
+    const shadow = document.getElementById("shadow");
+    const hud    = document.getElementById("hud");
+    const sizeEl = document.getElementById("size");
+    const speedEl= document.getElementById("speed");
+    const centerBtn = document.getElementById("center");
+
+    // Initialize controls from CSS vars
+    const css = getComputedStyle(document.documentElement);
+    sizeEl.value  = parseFloat(css.getPropertyValue("--pet-size")) || 96;
+    speedEl.value = parseFloat(css.getPropertyValue("--speed")) || 300;
+
+    sizeEl.addEventListener("input", () => {
+      document.documentElement.style.setProperty("--pet-size", sizeEl.value);
+      clampPosition(true);
+    });
+    speedEl.addEventListener("input", () => {
+      document.documentElement.style.setProperty("--speed", speedEl.value);
+    });
+    centerBtn.addEventListener("click", () => {
+      target.x = innerWidth / 2;
+      target.y = innerHeight / 2;
+    });
+
+    let pos    = { x: innerWidth/2, y: innerHeight/2 };
+    let target = { x: innerWidth/2, y: innerHeight/2 };
+    let lastT  = performance.now();
+    let idleTimer = null;
+    let isMoving = false;
+
+    // Place pet initially
+    setPos(pos.x, pos.y);
+    setMoving(false);
+
+    // Click / tap to move
+    addEventListener("pointerdown", (e) => {
+      const { x, y } = clampToStage(e.clientX, e.clientY);
+      target.x = x; target.y = y;
+      pokeEyesToward(x, y);
+      resetIdle();
+    });
+
+    // Idle wander every ~6–10s
+    function startIdle(){
+      idleTimer = setTimeout(() => {
+        const x = randBetween(20, innerWidth - 20);
+        const y = randBetween(20, innerHeight - 20);
+        const {x:cx, y:cy} = clampToStage(x, y);
+        target.x = cx; target.y = cy;
+        startIdle(); // schedule next
+      }, randBetween(6000, 10000));
+    }
+    function resetIdle(){
+      clearTimeout(idleTimer);
+      startIdle();
+    }
+    startIdle();
+
+    // Main loop
+    function tick(now){
+      const dt = Math.min(0.040, (now - lastT) / 1000); // cap dt for stability
+      lastT = now;
+
+      const speed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--speed")) || 300;
+      const dx = target.x - pos.x;
+      const dy = target.y - pos.y;
+      const dist = Math.hypot(dx, dy);
+
+      if(dist > 1){
+        const vx = (dx / dist) * speed;
+        const vy = (dy / dist) * speed;
+        pos.x += vx * dt;
+        pos.y += vy * dt;
+        // Face direction
+        const dir = Math.sign(vx) || 1;
+        pet.style.transform = `translate(-50%, -50%) scaleX(${dir})`;
+        setMoving(true);
+      } else {
+        setMoving(false);
+      }
+
+      setPos(pos.x, pos.y);
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    // Keep pet within the frame
+    addEventListener("resize", () => clampPosition(true));
+    function clampPosition(updateTarget=false){
+      const clamped = clampToStage(pos.x, pos.y);
+      pos.x = clamped.x;
+      pos.y = clamped.y;
+      setPos(pos.x, pos.y);
+      if(updateTarget){
+        const t = clampToStage(target.x, target.y);
+        target.x = t.x; target.y = t.y;
+      }
+    }
+
+    function clampToStage(x, y){
+      const rect = pet.getBoundingClientRect();
+      const halfW = rect.width/2;
+      const halfH = rect.height/2;
+      const margin = 6;
+      const minX = margin + halfW;
+      const maxX = innerWidth - margin - halfW;
+      const minY = margin + halfH;
+      const maxY = innerHeight - margin - halfH;
+      return {
+        x: Math.max(minX, Math.min(maxX, x)),
+        y: Math.max(minY, Math.min(maxY, y))
+      };
+    }
+
+    function setPos(x, y){
+      pet.style.left = x + "px";
+      pet.style.top  = y + "px";
+      shadow.style.left = x + "px";
+      shadow.style.top  = y + "px";
+    }
+
+    function setMoving(m){
+      if(m === isMoving) return;
+      isMoving = m;
+      document.body.classList.toggle("moving", m);
+      pet.style.filter = m ? "saturate(1.05)" : "none";
+    }
+
+    function randBetween(min, max){ return Math.random() * (max - min) + min; }
+
+    // Make the pupils look toward the target slightly
+    const eyeL = document.getElementById("eyeL");
+    const eyeR = document.getElementById("eyeR");
+    function pokeEyesToward(tx, ty){
+      const rect = pet.getBoundingClientRect();
+      const center = { x: rect.left + rect.width/2, y: rect.top + rect.height/2 };
+      const angle = Math.atan2(ty - center.y, tx - center.x);
+      const offset = 2.2; // px
+      const ox = Math.cos(angle) * offset;
+      const oy = Math.sin(angle) * offset;
+      eyeL.style.transform = `translate(${ox}px, ${oy}px)`;
+      eyeR.style.transform = `translate(${ox}px, ${oy}px)`;
+      // relax back a bit after a moment
+      setTimeout(() => {
+        eyeL.style.transform = "translate(0,0)";
+        eyeR.style.transform = "translate(0,0)";
+      }, 400);
+    }
+
+    // Keyboard niceties
+    addEventListener("keydown", (e) => {
+      if(e.key.toLowerCase() === "h"){
+        hud.style.display = hud.style.display === "none" ? "inline-flex" : "none";
+      }
+      if(e.key === "c"){
+        target.x = innerWidth / 2;
+        target.y = innerHeight / 2;
+      }
+    });
+
+  </script>
+</body>
+</html>
