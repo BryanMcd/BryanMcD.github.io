@@ -2,7 +2,7 @@
 title: About
 layout: page
 ---
-![Profile Image]({% if site.external-image %}{{ site.picture }}{% else %}{{ site.url }}/{{ site.picture }}{% endif %})
+![Profile Image]({{ site.picture | absolute_url }})
 
 Bryan McDonald, Ph.D. is an immunologist specializing in T cell biology and epigenetic regulation of immune responses. He earned his doctorate at the Salk Institute, studying transcription factor–driven chromatin remodeling in CD8⁺ T cells during infection and cancer.
 
