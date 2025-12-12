@@ -16,4 +16,5 @@ Bryan McDonald, Ph.D. is an immunologist specializing in T cell biology and epig
 
 <ul>
 	<li><a href="https://www.instagram.com/bm.om1">Photography</a></li>
+	<li><a href="https://github.com/BryanMcd/paper-digest-app">paperdigest</a></li>
 </ul>
