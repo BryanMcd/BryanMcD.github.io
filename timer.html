@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notion Violent Timer V3 Wide</title>
+    <title>Notion Gentle Timer V7</title>
     <script src="logo.js"></script>
     <style>
         /* --- General Styling --- */
+        :root {
+            --alarm-color: #ff0000; /* Default bright red */
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             display: flex;
@@ -19,20 +23,17 @@
             transition: background-color 0.2s;
         }
 
-        /* --- The Container (Now Wider) --- */
+        /* --- The Container --- */
         .container {
             background: white;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            /* Flex row to make it side-by-side */
             display: flex;
             flex-direction: row;
             align-items: center;
             gap: 25px;
-            
-            width: 480px; /* Increased width */
-            /* Height will define itself based on content, but will be shorter than before */
+            width: 480px; 
             border: 1px solid #e0e0e0;
         }
 
@@ -67,7 +68,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            transition: transform 1s linear; 
+            transition: transform 0.1s linear; 
         }
 
         /* --- Timer Display --- */
@@ -103,17 +104,18 @@
         }
         .btn-preset:hover { background-color: #e0e0e0; }
 
-        /* --- Custom Input Area --- */
-        .custom-input-container {
+        /* --- Custom Input & Color Area --- */
+        .settings-row {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             margin-bottom: 12px;
             padding-bottom: 12px;
             border-bottom: 1px solid #eee;
+            align-items: center;
         }
 
         #customInput {
-            width: 100%;
+            flex: 1;
             padding: 6px;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -126,6 +128,27 @@
             white-space: nowrap;
         }
         #customSetBtn:hover { background-color: #444; }
+
+        /* Color Picker Styling */
+        .color-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 2px 6px;
+            height: 29px; 
+            background: #fafafa;
+        }
+        
+        #alarmColorPicker {
+            border: none;
+            width: 30px;
+            height: 25px;
+            cursor: pointer;
+            background: none;
+            padding: 0;
+        }
 
         /* --- Main Controls --- */
         .controls {
@@ -151,25 +174,25 @@
         }
         #resetBtn:hover { background-color: #d0d0d0; }
 
-        /* --- THE VIOLENT FLASHING --- */
-        @keyframes violence {
-            0% { background-color: #ff0000; }
-            25% { background-color: #000000; }
-            50% { background-color: #ff0000; }
-            75% { background-color: #ffffff; }
-            100% { background-color: #ff0000; }
+        /* --- THE GENTLE PULSE --- */
+        @keyframes gentle-pulse {
+            0% { background-color: transparent; }
+            50% { background-color: var(--alarm-color); }
+            100% { background-color: transparent; }
         }
 
         body.alarm-active {
-            animation: violence 0.15s infinite;
+            animation: gentle-pulse 2s infinite ease-in-out;
         }
         
         body.alarm-active .container {
-            border: 4px solid black;
-            background: #fff;
+            box-shadow: 0 0 20px var(--alarm-color);
+            border-color: var(--alarm-color);
         }
+        
         body.alarm-active #display {
-            color: red;
+            color: var(--alarm-color);
+            filter: brightness(0.6);
         }
 
     </style>
@@ -195,9 +218,13 @@
                 <button class="btn-preset" onclick="setTime(60)">60m</button>
             </div>
 
-            <div class="custom-input-container">
-                <input type="number" id="customInput" placeholder="Custom min" min="1">
+            <div class="settings-row">
+                <input type="number" id="customInput" placeholder="Min" min="1">
                 <button id="customSetBtn" onclick="setCustomTime()">Set</button>
+                
+                <div class="color-wrapper" title="Choose Alarm Color">
+                    <input type="color" id="alarmColorPicker" value="#ff0000">
+                </div>
             </div>
 
             <div class="controls">
@@ -219,7 +246,24 @@
         const customInput = document.getElementById('customInput');
         const body = document.body;
         const logo = document.getElementById('logo');
-        logo.src = logoBase64;
+        const colorPicker = document.getElementById('alarmColorPicker');
+
+        // Load logo if present
+        if (typeof logoBase64 !== 'undefined') {
+            logo.src = logoBase64;
+        }
+
+        // --- Color Logic ---
+        colorPicker.addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--alarm-color', e.target.value);
+        });
+
+        // --- Enter Key Listener (New Feature) ---
+        customInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                setCustomTime();
+            }
+        });
 
         function formatTime(seconds) {
             const m = Math.floor(seconds / 60);
