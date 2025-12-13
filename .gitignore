@@ -4,3 +4,4 @@ _site
 Gemfile.lock
 .bundle
 vendor/
+base64_NL_logo.txt
