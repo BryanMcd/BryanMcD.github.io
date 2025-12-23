@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notion Gentle Timer V7</title>
+    <title>Notion Gentle Timer V9 - Clean Overtime</title>
     <script src="logo.js"></script>
     <style>
         /* --- General Styling --- */
         :root {
-            --alarm-color: #ff0000; /* Default bright red */
+            --alarm-color: #897AE5;
         }
 
         body {
@@ -23,7 +23,6 @@
             transition: background-color 0.2s;
         }
 
-        /* --- The Container --- */
         .container {
             background: white;
             padding: 20px;
@@ -37,7 +36,6 @@
             border: 1px solid #e0e0e0;
         }
 
-        /* --- Sections --- */
         .visual-section {
             flex: 0 0 auto;
             display: flex;
@@ -54,7 +52,6 @@
             justify-content: center;
         }
 
-        /* --- Logo Styling --- */
         #logo-container {
             width: 70px;
             height: 70px;
@@ -80,7 +77,6 @@
             line-height: 1;
         }
 
-        /* --- Preset Buttons --- */
         .preset-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -104,7 +100,6 @@
         }
         .btn-preset:hover { background-color: #e0e0e0; }
 
-        /* --- Custom Input & Color Area --- */
         .settings-row {
             display: flex;
             gap: 8px;
@@ -129,7 +124,6 @@
         }
         #customSetBtn:hover { background-color: #444; }
 
-        /* Color Picker Styling */
         .color-wrapper {
             display: flex;
             align-items: center;
@@ -150,7 +144,6 @@
             padding: 0;
         }
 
-        /* --- Main Controls --- */
         .controls {
             display: flex;
             justify-content: center;
@@ -174,7 +167,7 @@
         }
         #resetBtn:hover { background-color: #d0d0d0; }
 
-        /* --- THE GENTLE PULSE --- */
+        /* --- Alarm Visuals --- */
         @keyframes gentle-pulse {
             0% { background-color: transparent; }
             50% { background-color: var(--alarm-color); }
@@ -194,13 +187,11 @@
             color: var(--alarm-color);
             filter: brightness(0.6);
         }
-
     </style>
 </head>
 <body>
 
     <div class="container">
-        
         <div class="visual-section">
             <div id="logo-container">
                 <img id="logo" alt="Rotating Logo">
@@ -221,9 +212,8 @@
             <div class="settings-row">
                 <input type="number" id="customInput" placeholder="Min" min="1">
                 <button id="customSetBtn" onclick="setCustomTime()">Set</button>
-                
                 <div class="color-wrapper" title="Choose Alarm Color">
-                    <input type="color" id="alarmColorPicker" value="#ff0000">
+                    <input type="color" id="alarmColorPicker" value="#897AE5">
                 </div>
             </div>
 
@@ -232,7 +222,6 @@
                 <button id="resetBtn" onclick="resetTimer()">Reset</button>
             </div>
         </div>
-
     </div>
 
     <script>
@@ -248,17 +237,14 @@
         const logo = document.getElementById('logo');
         const colorPicker = document.getElementById('alarmColorPicker');
 
-        // Load logo if present
         if (typeof logoBase64 !== 'undefined') {
             logo.src = logoBase64;
         }
 
-        // --- Color Logic ---
         colorPicker.addEventListener('input', (e) => {
             document.documentElement.style.setProperty('--alarm-color', e.target.value);
         });
 
-        // --- Enter Key Listener (New Feature) ---
         customInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 setCustomTime();
@@ -266,8 +252,16 @@
         });
 
         function formatTime(seconds) {
-            const m = Math.floor(seconds / 60);
-            const s = seconds % 60;
+            const absVal = Math.abs(seconds);
+            
+            // Logic: if overtime (negative), we round DOWN (floor) to count up from 0
+            // If counting down (positive), we round UP (ceil) to show 00:01 until the very last moment
+            const isOvertime = seconds < 0;
+            const effectiveSeconds = isOvertime ? Math.floor(absVal) : Math.ceil(seconds);
+
+            const m = Math.floor(effectiveSeconds / 60);
+            const s = effectiveSeconds % 60;
+            
             return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
         }
 
@@ -289,12 +283,16 @@
         }
 
         function updateDisplay() {
-            display.textContent = formatTime(Math.ceil(timeLeft));
+            display.textContent = formatTime(timeLeft);
         }
 
         function updateRotation() {
             if (totalTime <= 0) {
                 logo.style.transform = 'rotate(0deg)';
+                return;
+            }
+            if (timeLeft < 0) {
+                logo.style.transform = 'rotate(360deg)';
                 return;
             }
             const progress = (totalTime - timeLeft) / totalTime;
@@ -311,7 +309,7 @@
         }
 
         function startTimer() {
-            if (timeLeft <= 0) return;
+            if (totalTime === 0 && timeLeft === 0) return;
             
             isRunning = true;
             startBtn.textContent = "Pause";
@@ -326,15 +324,13 @@
                 timeLeft = initialTimeLeft - elapsed;
 
                 if (timeLeft <= 0) {
-                    timeLeft = 0;
-                    updateDisplay();
-                    updateRotation();
-                    clearInterval(timerId);
-                    triggerAlarm();
-                } else {
-                    updateDisplay();
-                    updateRotation();
+                    if (!body.classList.contains('alarm-active')) {
+                        triggerAlarmVisuals();
+                    }
                 }
+                
+                updateDisplay();
+                updateRotation();
             }, 100); 
         }
 
@@ -354,10 +350,7 @@
             updateRotation();
         }
 
-        function triggerAlarm() {
-            isRunning = false;
-            startBtn.textContent = "Start";
-            startBtn.style.backgroundColor = "#2eaadc";
+        function triggerAlarmVisuals() {
             body.classList.add('alarm-active');
         }
 
@@ -365,7 +358,6 @@
             body.classList.remove('alarm-active');
         }
 
-        // Init
         updateDisplay();
     </script>
 </body>
