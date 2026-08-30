@@ -1,0 +1,27 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Garage Board</title>
+<!--
+  Stable public link for the Garage Board: https://bryanmcd.github.io/boardlord
+
+  Deployed as boardlord/index.html in the root of the BryanMcD.github.io
+  repo; this is the source copy. The older boardlord.html sits beside it as
+  a one-line forwarder, so links shared before the rename still work.
+
+  If the Apps Script deployment URL ever changes (New deployment, rather
+  than editing the existing one), edit APP_URL here and in the deployed
+  copy. It appears nowhere else. The shared link stays the same.
+
+  No <noscript> fallback: the board itself is pure JS, so a browser that
+  can't run this can't run the app either.
+-->
+<body style="font:16px/1.5 system-ui,sans-serif;margin:3rem auto;max-width:32rem;padding:0 1rem">
+  <p>Opening the garage board… <a id="go" href="">continue</a></p>
+  <script>
+    var APP_URL = "https://script.google.com/macros/s/AKfycbz9ltmuCy7TeJZK_BZh9lb7yqGRCT6XB7toQH79FFP3OV2-ftS5qvBl1kv4G1jJiA-o/exec";
+    // Carry ?query and #r=route deep links through to the app.
+    var dest = APP_URL + location.search + location.hash;
+    document.getElementById("go").href = dest;
+    location.replace(dest);   // replace, not assign: Back returns to where they came from
+  </script>
+</body>
