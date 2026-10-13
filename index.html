@@ -1,4 +1,35 @@
 ---
-layout: page
-title: Home
+layout: default
 ---
+<section class="hero">
+    <div class="hero-text">
+        <p class="eyebrow">A human scientist</p>
+        <h1>Bryan McDonald</h1>
+        <p class="lede">I'm an immunologist specializing in T cell biology and epigenetic regulation of immune responses.</p>
+        <p>I earned my doctorate at the Salk Institute, studying transcription factor–driven chromatin remodeling in CD8<sup>+</sup> T cells during infection and cancer.</p>
+        {% include profile-links.html %}
+    </div>
+    <a class="hero-photo" href="{{ '/about/' | relative_url }}">
+        <img src="{{ site.picture | relative_url }}" alt="Portrait of Bryan McDonald" width="320" height="320">
+    </a>
+</section>
+
+<section class="section" aria-labelledby="pubs-heading">
+    <div class="section-head">
+        <h2 id="pubs-heading">Selected publications</h2>
+        <a class="more" href="{{ '/publications/' | relative_url }}">All {{ site.data.publications | size }} papers →</a>
+    </div>
+    <ul class="pubs">
+        {% assign selected = site.data.publications | where: "selected", true %}
+        {% for pub in selected %}
+            {% include pub.html %}
+        {% endfor %}
+    </ul>
+</section>
+
+<section class="section" aria-labelledby="projects-heading">
+    <div class="section-head">
+        <h2 id="projects-heading">Side quests</h2>
+    </div>
+    {% include project-cards.html %}
+</section>

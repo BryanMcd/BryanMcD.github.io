@@ -1,0 +1,25 @@
+# Side projects shown on the home and projects pages.
+# icon: optional name of an icon from _includes/icons.html, shown beside "kind".
+# image: optional photo shown faintly behind the card text, e.g. /assets/images/photo.jpg
+# image_inset: optional, e.g. 6%. Narrows the photo to zoom it out; its side edges fade into the card.
+# image_opacity: optional, 0 to 1. How strongly the photo shows; the default is 0.3.
+# image_alt: short description of that photo.
+# url: relative paths are pages in this repo; full URLs open externally.
+
+- name: "Paper Digest"
+  kind: "GitHub"
+  icon: github
+  image: /assets/images/paper-digest.jpg
+  image_inset: 7%
+  image_opacity: 0.25
+  image_alt: "Man Reading, a painting by Georges Lemmen"
+  url: "https://github.com/BryanMcD/paper-digest-app"
+  description: "A small Python app that gathers new research papers from the journals you follow, using the OpenAlex API."
+
+- name: "Photography"
+  kind: "Instagram"
+  icon: instagram
+  image: /assets/images/photography.jpg
+  image_alt: "Film photograph looking up through an opening in rippled green ice"
+  url: "https://www.instagram.com/bm.om1"
+  description: "35mm film."

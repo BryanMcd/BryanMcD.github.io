@@ -1,0 +1,148 @@
+# Peer-reviewed publications, newest first.
+# type: article | review
+# selected: true shows the paper on the home page.
+# An asterisk after a name marks co-first authors.
+# Long author lists are shortened with "…"; "McDonald B" is bolded automatically.
+
+- title: "Atlas-guided discovery of transcription factors for T cell programming"
+  authors: "Chung HK, Liu C, Battu A, … McDonald B, … Milner JJ, Kaech SM, Wang W"
+  journal: "Nature"
+  year: 2026
+  citation: "651(8107):1077–1087"
+  doi: "10.1038/s41586-025-09989-7"
+  type: article
+  selected: true
+
+- title: "Nutrient-driven histone code determines exhausted CD8<sup>+</sup> T cell fates"
+  authors: "Ma S, Dahabieh MS, Mann TH, Zhao S, McDonald B, … Jones RG, Kaech SM"
+  journal: "Science"
+  year: 2025
+  citation: "387(6734):eadj3020"
+  doi: "10.1126/science.adj3020"
+  type: article
+
+- title: "Late-rising CD4 T cells resolve mouse cytomegalovirus persistent replication in the salivary gland"
+  authors: "Brunel S, Picarda G, Gupta A, Ghosh R, McDonald B, … Vijayanand P, Benedict CA"
+  journal: "PLoS Pathogens"
+  year: 2024
+  citation: "20(1):e1011852"
+  doi: "10.1371/journal.ppat.1011852"
+  type: article
+
+- title: "Early chromatin remodeling events in acutely stimulated CD8<sup>+</sup> T cells"
+  authors: "McDonald B, Chick BY, Hargreaves DC, Kaech SM"
+  journal: "Yale Journal of Biology and Medicine"
+  year: 2023
+  citation: "96(4):467–473"
+  doi: "10.59249/AXGU7370"
+  type: article
+  selected: true
+
+- title: "CTLA-4 blockade induces a microglia-Th1 cell partnership that stimulates microglia phagocytosis and anti-tumor function in glioblastoma"
+  authors: "Chen D, Varanasi SK, Hara T, Traina K, Sun M, McDonald B, … Hunter T, Lemke G, Kaech SM"
+  journal: "Immunity"
+  year: 2023
+  citation: "56(9):2086–2104.e8"
+  doi: "10.1016/j.immuni.2023.07.015"
+  type: article
+
+- title: "Canonical BAF complex activity shapes the enhancer landscape that licenses CD8<sup>+</sup> T cell effector and memory fates"
+  authors: "McDonald B, Chick BY, Ahmed NS, Burns M, Ma S, Casillas E, Chen D, Mann TH, O'Connor C, Hah N, Hargreaves DC, Kaech SM"
+  journal: "Immunity"
+  year: 2023
+  citation: "56(6):1303–1319.e5"
+  doi: "10.1016/j.immuni.2023.05.005"
+  type: article
+  selected: true
+
+- title: "SMAD4 and TGFβ are architects of inverse genetic programs during fate determination of antiviral CTLs"
+  authors: "Chandiran K, Suarez-Ramirez JE, Hu Y, Jellison ER, Ugur Z, Low JS, McDonald B, Kaech SM, Cauley LS"
+  journal: "eLife"
+  year: 2022
+  citation: "11:e76457"
+  doi: "10.7554/eLife.76457"
+  type: article
+
+- title: "Motility matters: how CD8<sup>+</sup> T-cell trafficking influences effector and memory cell differentiation"
+  authors: "Farsakoglu Y, McDonald B, Kaech SM"
+  journal: "Cold Spring Harbor Perspectives in Biology"
+  year: 2021
+  citation: "13(8):a038075"
+  doi: "10.1101/cshperspect.a038075"
+  type: review
+
+- title: "Uptake of oxidized lipids by the scavenger receptor CD36 promotes lipid peroxidation and dysfunction in CD8<sup>+</sup> T cells in tumors"
+  authors: "Xu S, Chaudhary O, Rodríguez-Morales P, … McDonald B, … Emu B, Cui G, Kaech SM"
+  journal: "Immunity"
+  year: 2021
+  citation: "54(7):1561–1577.e7"
+  doi: "10.1016/j.immuni.2021.05.003"
+  type: article
+
+- title: "Fc-optimized anti-CCR8 antibody depletes regulatory T cells in human tumor models"
+  authors: "Campbell JR*, McDonald BR*, Mesko PB, Siemers NO, Singh PB, … Jain R, Lan RY"
+  journal: "Cancer Research"
+  year: 2021
+  citation: "81(11):2983–2994"
+  doi: "10.1158/0008-5472.CAN-20-3585"
+  type: article
+  selected: true
+
+- title: "The architectural design of CD8<sup>+</sup> T cell responses in acute and chronic infection: parallel structures with divergent fates"
+  authors: "Chung HK, McDonald B, Kaech SM"
+  journal: "Journal of Experimental Medicine"
+  year: 2021
+  citation: "218(4):e20201730"
+  doi: "10.1084/jem.20201730"
+  type: review
+  selected: true
+
+- title: "Heterogenous populations of tissue-resident CD8<sup>+</sup> T cells are generated in response to infection and malignancy"
+  authors: "Milner JJ, Toma C, He Z, Kurd NS, Nguyen QP, McDonald B, … Chang JT, Omilusik KD, Goldrath AW"
+  journal: "Immunity"
+  year: 2020
+  citation: "52(5):808–824.e7"
+  doi: "10.1016/j.immuni.2020.04.007"
+  type: article
+  selected: true
+
+- title: "Cytomegalovirus evades TRAIL-mediated innate lymphoid cell 1 defenses"
+  authors: "Picarda G, Ghosh R, McDonald B, Verma S, Thiault N, El Morabiti R, Griffith TS, Benedict CA"
+  journal: "Journal of Virology"
+  year: 2019
+  citation: "93(16):e00617-19"
+  doi: "10.1128/JVI.00617-19"
+  type: article
+
+- title: "cGAS-STING signaling regulates initial innate control of cytomegalovirus infection"
+  authors: "Lio CW, McDonald B, Takahashi M, Dhanwani R, Sharma N, Huang J, Pham E, Benedict CA, Sharma S"
+  journal: "Journal of Virology"
+  year: 2016
+  citation: "90(17):7789–7797"
+  doi: "10.1128/JVI.01040-16"
+  type: article
+  selected: true
+
+- title: "Cytomegalovirus-specific CD4 T cells are cytolytic and mediate vaccine protection"
+  authors: "Verma S, Weiskopf D, Gupta A, McDonald B, Peters B, Sette A, Benedict CA"
+  journal: "Journal of Virology"
+  year: 2016
+  citation: "90(2):650–658"
+  doi: "10.1128/JVI.02123-15"
+  type: article
+
+- title: "Cardif (MAVS) regulates the maturation of NK cells"
+  authors: "Haynes LD, Verma S, McDonald B, Wu R, Tacke R, Nowyhed HN, Ekstein J, Feuvrier A, Benedict CA, Hedrick CC"
+  journal: "Journal of Immunology"
+  year: 2015
+  citation: "195(5):2157–2167"
+  doi: "10.4049/jimmunol.1402060"
+  type: article
+
+- title: "Inhibition of the TRAIL death receptor by CMV reveals its importance in NK cell-mediated antiviral defense"
+  authors: "Verma S, Loewendorf A, Wang Q, McDonald B, Redwood A, Benedict CA"
+  journal: "PLoS Pathogens"
+  year: 2014
+  citation: "10(8):e1004268"
+  doi: "10.1371/journal.ppat.1004268"
+  type: article
