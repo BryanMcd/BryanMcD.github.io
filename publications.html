@@ -1,0 +1,25 @@
+---
+layout: page
+title: Publications
+permalink: /publications/
+eyebrow: Peer-reviewed work
+description: Peer-reviewed publications by Bryan McDonald on T cell biology, chromatin regulation, tumor immunity and antiviral immunity.
+---
+<p class="page-note">
+    <a href="https://scholar.google.com/citations?user={{ site.gscholar }}" rel="noopener">
+        <svg class="icon" aria-hidden="true"><use xlink:href="#icon-gscholar"></use></svg>
+        Full list available on Google Scholar
+    </a>
+</p>
+
+{% assign years = site.data.publications | group_by: "year" %}
+{% for year in years %}
+    <section class="pub-year" aria-labelledby="y{{ year.name }}">
+        <h2 id="y{{ year.name }}" class="pub-year-label">{{ year.name }}</h2>
+        <ul class="pubs">
+            {% for pub in year.items %}
+                {% include pub.html %}
+            {% endfor %}
+        </ul>
+    </section>
+{% endfor %}

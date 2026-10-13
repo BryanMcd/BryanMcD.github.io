@@ -1,0 +1,27 @@
+<div class="profile-links">
+    {% if site.instagram %}
+        <a class="link" href="https://www.instagram.com/{{ site.instagram }}" title="Instagram" aria-label="Instagram" rel="me noopener">
+            <svg class="icon" aria-hidden="true"><use xlink:href="#icon-instagram"></use></svg>
+        </a>
+    {% endif %}
+    {% if site.linkedin %}
+        <a class="link" href="https://www.linkedin.com/in/{{ site.linkedin }}" title="LinkedIn" aria-label="LinkedIn" rel="me noopener">
+            <svg class="icon" aria-hidden="true"><use xlink:href="#icon-linkedin"></use></svg>
+        </a>
+    {% endif %}
+    {% if site.github %}
+        <a class="link" href="https://github.com/{{ site.github }}" title="GitHub" aria-label="GitHub" rel="me noopener">
+            <svg class="icon" aria-hidden="true"><use xlink:href="#icon-github"></use></svg>
+        </a>
+    {% endif %}
+    {% if site.email %}
+        <a class="link" href="mailto:{{ site.email }}" title="Email" aria-label="Email">
+            <svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail"></use></svg>
+        </a>
+    {% endif %}
+    {% if site.gscholar %}
+        <a class="link" href="https://scholar.google.com/citations?user={{ site.gscholar }}" title="Google Scholar" aria-label="Google Scholar" rel="me noopener">
+            <svg class="icon" aria-hidden="true"><use xlink:href="#icon-gscholar"></use></svg>
+        </a>
+    {% endif %}
+</div>

@@ -1,0 +1,14 @@
+<ul class="cards">
+    {% for project in site.data.projects %}
+        {% assign first = project.url | slice: 0 %}
+        <li class="card{% if project.image %} card-has-image{% endif %}">
+            {% if project.image %}<img class="card-image{% if project.image_inset %} card-image-inset{% endif %}"{% if project.image_inset or project.image_opacity %} style="{% if project.image_inset %}--image-inset: {{ project.image_inset }};{% endif %}{% if project.image_opacity %}--image-opacity: {{ project.image_opacity }};{% endif %}"{% endif %} src="{{ project.image | relative_url }}" alt="{{ project.image_alt }}">{% endif %}
+            <p class="card-kind">{% if project.icon %}<svg class="icon" aria-hidden="true"><use xlink:href="#icon-{{ project.icon }}"></use></svg>{% endif %}{{ project.kind }}</p>
+            <h3 class="card-title">
+                <a href="{% if first == '/' %}{{ project.url | relative_url }}{% else %}{{ project.url }}{% endif %}"{% if first != '/' %} rel="noopener"{% endif %}>{{ project.name }}</a>
+            </h3>
+            <p class="card-text">{{ project.description }}</p>
+            <span class="card-arrow" aria-hidden="true">{% if first == '/' %}→{% else %}↗{% endif %}</span>
+        </li>
+    {% endfor %}
+</ul>

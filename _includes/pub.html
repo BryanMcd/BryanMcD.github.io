@@ -1,0 +1,11 @@
+<li class="pub">
+    <p class="pub-title"><a href="https://doi.org/{{ pub.doi }}" rel="noopener">{{ pub.title }}</a></p>
+    <p class="pub-authors">{{ pub.authors | replace: "McDonald B", "<strong>McDonald B</strong>" | replace: "</strong>R", "R</strong>" }}</p>
+    <p class="pub-meta">
+        <span class="pub-journal">{{ pub.journal }}</span>
+        <span>{{ pub.year }}</span>
+        <span>{{ pub.citation }}</span>
+        {% if pub.authors contains "*" %}<span>* Co-first authors</span>{% endif %}
+        {% if pub.type == "review" %}<span class="tag">Review</span>{% endif %}
+    </p>
+</li>
